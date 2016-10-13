@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<head>
+  {% block head %}
+  <title>{% block tilte %}{% endblock %}</title>
+  <link rel="icon" href="{{url_for('static',filename="icon.jpg")}}" type="imge/x-icon" />
+  {% endblock %}
+  <body>
+    {% block body %}
+    {% endblock %}
+  </body>
+</head>
