@@ -1,0 +1,12 @@
+<html>
+<head>
+  <title>Admin</title>
+  <link rel="stylesheet" href="{{url_for('static',filename="button.css")}}" type="text/css"/>
+</head>
+<body>
+<div class="items">
+  <a href="{{url_for('admin.edit')}}"><button class="button button_get_more">edit</button></a>
+  <a href="{{url_for('admin.managedata')}}"><button class="button button_get_more">managedata</button></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>hello</title>
+  <link rel="icon" href="{{url_for('static',filename="icon.jpg")}}" type="imge/x-icon" />
+  <link rel="stylesheet" href="{{url_for('static',filename="test.css")}}" type="text/css"/>
+  <link rel="stylesheet" href="{{url_for('static',filename="button.css")}}" type="text/css"/>
+  <style>
+  p{
+    /*font-size: 30px;*/
+  }
+  </style>
+</head>
+<body>
+  <ul>
+    <li><a href="#">HOME</a></li>
+    <li><a href="#">ABOUTME</a></li>
+    <li><a href="#">TAG</a></li>
+  </ul>
+<div class="empty"></div>
+  {% for post in posts %}
+<div class="content">
+  <a href="{{url_for('.post',id=post.id)}}"><h3>{{ post.title | safe}}</h3></a>
+  <p>
+    <small>
+      {{ post.time }}
+      <a href="#"style="float:right">{{ post.tag}}</a>
+    </small>
+  </p>
+  {{ post.content_html | safe | truncate(200, True) }}
+  <a href="{{url_for('.post',id=post.id)}}">READMORE→</a>
+</div>
+{% endfor %}
+<button class="button button_get_more" id="btn" >get more</button>
+</body>
+<script type="text/javascript">
+var page = 1;
+function getmore(){
+  page++;
+  sleep(1000);
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '/api/posts/'+'?page='+page,true);
+  xhr.onreadystatechange = function(){
+    if(xhr.readyState && xhr.status == 200){
+      var data = JSON.parse(xhr.responseText) //不用；
+      posts = data.posts;
+      if(posts.length!=0){
+        for(i=0;i<20;i++){
+          title = posts[i].title;
+          time = posts[i].time;
+          content_html = posts[i].content_html;
+          id = posts[i].id;
+          newpost(title,content_html,time,id);
+        }
+        document.getElementById("result").innerHTML = data;
+        // console.log('success');
+        // console.log(data.posts);
+      }
+      else {
+        document.getElementById('btn').style.display = 'none'
+        console.log('get data fail');
+      }
+    }
+    else{
+      console.log('ajax error');
+    }
+  }
+  xhr.send();
+}
+function newpost(title,content_html,time,id){
+  var div = document.createElement('div');
+  div.className = 'content';
+  var titlenode = document.createElement('h3');
+  titlenode.innerHTML = title;
+  div.appendChild(titlenode);
+  var contentnode = document.createElement('div');
+  var small = document.createElement('small');
+  small.innerHTML = time;
+  contentnode.appendChild(small);
+  var ndiv = document.createElement('div');
+  ndiv.innerHTML = content_html;
+  contentnode.appendChild(ndiv);
+  div.appendChild(contentnode);
+  var btnlink = document.createElement('a');
+  btnlink.href = '/post/'+id;
+  btnlink.innerHTML = 'READMORE→';
+  div.appendChild(btnlink);
+  var parent = document.getElementsByTagName('body')[0];
+  var target = document.getElementById('btn');
+  parent.insertBefore(div,target);
+}
+
+window.onscroll = function reachbottom(){
+  scrolltop = document.body.scrollTop;
+  clientheight = document.body.clientHeight;
+  scrollheight = document.body.scrollHeight;
+  if(scrolltop+clientheight == scrollheight){
+    getmore();
+  }
+}
+function sleep(milliSeconds){
+	var startTime = new Date().getTime(); // get the current time
+	while (new Date().getTime() < startTime + milliSeconds); // hog cpu
+}
+</script>
+</html>

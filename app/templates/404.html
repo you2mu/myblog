@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+  <title>404</title>
+  <link rel="stylesheet" href="{{url_for('static',filename="button.css")}}" type="text/css"/>
+  <style>
+  a{
+    color: rgb(0, 2, 3);
+    text-decoration: none;
+  }
+  a:hover{
+    text-decoration: underline;
+  }
+  </style>
+</head>
+<body>
+  <a href="{{url_for('main.index')}}"><button class="button button_get_more">返回首页</button></a>
+<img src="{{url_for('static',filename="mk.gif")}}"style="margin-left:20%"/>
+</body>
+</html>

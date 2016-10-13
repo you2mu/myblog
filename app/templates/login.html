@@ -1,0 +1,42 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>login</title>
+  <link rel="stylesheet"href="{{url_for('static',filename="login.css")}}" />
+</head>
+<body>
+  <!-- <div class="lgin">
+    <div class="menu">
+      <p class="p">登陆</p>
+    </div>
+    <div class="lgform">
+    <form action="{{url_for('.login')}}"method="post">
+        <input type="text" placeholder="用户名" name="name"/>
+        <input type="password" placeholder="密码" name="password"/>
+        <input type="submit" value="登陆"/>
+      </form>
+    </div>
+  </div> -->
+  <p style="text-align:center;margin:10px;">
+    <a href="{{url_for('main.index')}}">HOME</a>
+  </p>
+<form action="{{url_for('.login')}}" method="post" class="dark-matter">
+    <h1>登陆</h1>
+    <label>
+      <span>Name :</span>
+      <input type="text" name="name" placeholder="Your Full Name" autocomplete="off"/>
+    </label>
+    <label>
+      <span>Password :</span>
+      <input type="password" name="password" placeholder="Password" />
+    </label>
+    <label>
+      <span>&nbsp;</span>
+      <input type="submit" class="button" value="登陆" />
+    </label>
+</form>
+</body>
+</html>

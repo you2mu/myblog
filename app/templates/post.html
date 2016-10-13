@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title>{{ post.title }}</title>
+  <style type="text/css">
+  .content{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    padding:40px;
+    box-shadow: 1px 1px 10px #555;
+  }
+  </style>
+</head>
+<body>
+<div class="content">
+{{post.content_html | safe}}
+</div>
+</body>
+</html>
